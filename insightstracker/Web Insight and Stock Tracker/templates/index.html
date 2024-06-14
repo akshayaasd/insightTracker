@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equity Research Tool</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Equity Research Tool</h1>
+        <form method="POST">
+            <input type="url" name="url" placeholder="Enter webpage URL" required>
+            <input type="text" name="ticker" placeholder="Enter stock ticker (optional)">
+            <button type="submit">Get Information</button>
+        </form>
+        {% if url %}
+            <h2>Key Points for {{ url }}</h2>
+            <ol>
+                {% for point in summary %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ol>
+        {% endif %}
+        {% if stock_info %}
+            <h2>Stock Information for {{ stock_info['symbol'] }}</h2>
+            <ul>
+                <li><strong>Company Name:</strong> {{ stock_info['longName'] }}</li>
+                <li><strong>Current Price:</strong> {{ stock_info['currentPrice'] }}</li>
+                <li><strong>Market Cap:</strong> {{ stock_info['marketCap'] }}</li>
+                <li><strong>PE Ratio:</strong> {{ stock_info['trailingPE'] }}</li>
+                <li><strong>Dividend Yield:</strong> {{ stock_info['dividendYield'] }}</li>
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
